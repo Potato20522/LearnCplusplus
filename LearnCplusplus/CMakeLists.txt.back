@@ -1,0 +1,61 @@
+﻿# CMakeList.txt: LearnCplusplus 的 CMake 项目，在此处包括源代码并定义
+# 项目特定的逻辑。
+#
+cmake_minimum_required (VERSION 3.8)
+
+project ("LearnCplusplus")
+
+# 将源代码添加到此项目的可执行文件。
+add_executable (LearnCplusplus "LearnCplusplus.cpp" "LearnCplusplus.h")
+add_executable (swap "基础/函数的分文件编写.cpp" "swap.h" "swap.cpp")
+
+add_executable (point "指针/指针的定义和使用.cpp")
+add_executable (point2 "指针/指针所占空间.cpp")
+add_executable (point3 "指针/空指针和野指针.cpp")
+add_executable (point4 "指针/const修饰指针.cpp")
+add_executable (point5 "指针/利用指针访问数组中元素.cpp")
+add_executable (point6 "指针/值传递和地址传递.cpp")
+add_executable (point7 "指针/案例-冒泡排序.cpp")
+
+add_executable (struct "结构体/定义和使用.cpp")
+add_executable (struct2 "结构体/结构体数组.cpp")
+add_executable (struct3 "结构体/结构体指针.cpp")
+add_executable (struct4 "结构体/结构体嵌套结构体.cpp")
+add_executable (struct5 "结构体/结构体做函数参数.cpp")
+add_executable (struct6 "结构体/结构体中 const使用场景.cpp")
+
+add_executable (ram "内存四区/01.全局区.cpp")
+add_executable (ram2 "内存四区/02.栈区.cpp")
+add_executable (ram3 "内存四区/03.堆区.cpp")
+add_executable (ram4 "内存四区/04.new的使用.cpp")
+
+add_executable (ref "引用/01.引用的基本语法.cpp")
+add_executable (ref2 "引用/02.引用的注意事项.cpp")
+add_executable (ref3 "引用/03.引用做函数参数.cpp")
+add_executable (ref4 "引用/04.引用做函数返回值.cpp")
+add_executable (ref5 "引用/05.常量引用.cpp")
+
+add_executable (fun "函数提高/01.函数默认参数.cpp")
+add_executable (fun2 "函数提高/02.函数的占位参数.cpp")
+add_executable (fun3 "函数提高/03.函数的重载.cpp")
+
+add_executable (fz "面向对象/1.封装/封装的意义.cpp")
+add_executable (fz2 "面向对象/1.封装/学生类.cpp")
+add_executable (fz3 "面向对象/1.封装/访问权限.cpp")
+add_executable (fz4 "面向对象/1.封装/struct和class区别.cpp")
+add_executable (fz5 "面向对象/1.封装/成员属性设置为私有.cpp")
+
+add_executable (in "面向对象/2.对象的初始化和清理/01.构造函数和析构函数.cpp")
+add_executable (in2 "面向对象/2.对象的初始化和清理/02.构造函数的分类及调用.cpp")
+add_executable (in3 "面向对象/2.对象的初始化和清理/03.拷贝构造函数调用时机.cpp")
+add_executable (in4 "面向对象/2.对象的初始化和清理/04.构造函数调用规则.cpp")
+add_executable (in5 "面向对象/2.对象的初始化和清理/05.深拷贝与浅拷贝.cpp")
+add_executable (in6 "面向对象/2.对象的初始化和清理/06.初始化列表.cpp")
+add_executable (in7 "面向对象/2.对象的初始化和清理/07.类对象作为类成员.cpp")
+add_executable (in8 "面向对象/2.对象的初始化和清理/08.静态成员变量.cpp")
+add_executable (in9 "面向对象/2.对象的初始化和清理/09.静态成员函数.cpp")
+
+add_executable (this1 "面向对象/3.C++对象模型和this指针/01.成员变量和成员函数分开存储.cpp")
+add_executable (this2 "面向对象/3.C++对象模型和this指针/02.this指针.cpp")
+
+# TODO: 如有需要，请添加测试并安装目标。
