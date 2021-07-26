@@ -3,7 +3,6 @@
 #### 介绍
 C++基础学习
 
-```
 [笔记](https://gitee.com/potato20522/LearnCplusplus/blob/master/C++%E7%AC%94%E8%AE%B0.md)
 
 #### 软件架构
