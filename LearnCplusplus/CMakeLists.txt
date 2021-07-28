@@ -52,9 +52,31 @@ project ("LearnCplusplus")
 # add_executable (in8 "面向对象/2.对象的初始化和清理/08.静态成员变量.cpp")
 # add_executable (in9 "面向对象/2.对象的初始化和清理/09.静态成员函数.cpp")
 
-add_executable (this1 "面向对象/3.C++对象模型和this指针/01.成员变量和成员函数分开存储.cpp")
-add_executable (this2 "面向对象/3.C++对象模型和this指针/02.this指针.cpp")
-add_executable (this3 "面向对象/3.C++对象模型和this指针/03.空指针访问成员函数.cpp")
-add_executable (this4 "面向对象/3.C++对象模型和this指针/04.const修饰成员函数.cpp")
+# add_executable (this1 "面向对象/3.C++对象模型和this指针/01.成员变量和成员函数分开存储.cpp")
+# add_executable (this2 "面向对象/3.C++对象模型和this指针/02.this指针.cpp")
+# add_executable (this3 "面向对象/3.C++对象模型和this指针/03.空指针访问成员函数.cpp")
+# add_executable (this4 "面向对象/3.C++对象模型和this指针/04.const修饰成员函数.cpp")
+# 
+# add_executable (fri "面向对象/4.友元/01.全局函数做友元.cpp")
+# add_executable (fri2 "面向对象/4.友元/02.类做友元.cpp")
+# add_executable (fri3 "面向对象/4.友元/03.成员函数做友元.cpp")
+
+# add_executable (yun "面向对象/5.运算符重载/01.加号运算符重载.cpp")
+# add_executable (yun2 "面向对象/5.运算符重载/02.左移运算符重载.cpp")
+# add_executable (yun3 "面向对象/5.运算符重载/03.递增运算符重载.cpp")
+# add_executable (yun4 "面向对象/5.运算符重载/04.赋值运算符重载.cpp")
+# add_executable (yun5 "面向对象/5.运算符重载/05.关系运算符重载.cpp")
+add_executable (yun6 "面向对象/5.运算符重载/06.函数调用运算符重载.cpp")
+
+add_executable (ext1 "面向对象/6.继承/01.继承的基本语法.cpp")
+add_executable (ext3 "面向对象/6.继承/03.继承中的对象模型.cpp")
+add_executable (ext4 "面向对象/6.继承/04.继承中构造和析构顺序.cpp")
+add_executable (ext5 "面向对象/6.继承/05.继承同名成员处理方式.cpp")
+add_executable (ext6 "面向对象/6.继承/06.继承同名静态成员处理方式.cpp")
+add_executable (ext7 "面向对象/6.继承/07.多继承.cpp")
+add_executable (ext8 "面向对象/6.继承/08.菱形继承.cpp")
+
+
+
 
 # TODO: 如有需要，请添加测试并安装目标。
