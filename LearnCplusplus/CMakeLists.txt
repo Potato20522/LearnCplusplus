@@ -76,11 +76,19 @@ project ("LearnCplusplus")
 # add_executable (ext7 "面向对象/6.继承/07.多继承.cpp")
 # add_executable (ext8 "面向对象/6.继承/08.菱形继承.cpp")
 
-add_executable (duo1 "面向对象/7.多态/01.多态的基本概念.cpp")
-add_executable (duo2 "面向对象/7.多态/02.多态案例一-计算器类.cpp")
-add_executable (duo3 "面向对象/7.多态/03.纯虚函数和抽象类.cpp")
-add_executable (duo4 "面向对象/7.多态/04.多态案例二-制作饮品.cpp")
-add_executable (duo5 "面向对象/7.多态/05.虚析构和纯虚析构.cpp")
+# add_executable (duo1 "面向对象/7.多态/01.多态的基本概念.cpp")
+# add_executable (duo2 "面向对象/7.多态/02.多态案例一-计算器类.cpp")
+# add_executable (duo3 "面向对象/7.多态/03.纯虚函数和抽象类.cpp")
+# add_executable (duo4 "面向对象/7.多态/04.多态案例二-制作饮品.cpp")
+# add_executable (duo5 "面向对象/7.多态/05.虚析构和纯虚析构.cpp")
+# add_executable (duo6 "面向对象/7.多态/06.多态案例三-电脑组装")
+
+add_executable (fil1 "文件操作/01.文本文件-写文件.cpp")
+add_executable (fil2 "文件操作/02.文本文件-读文件.cpp")
+add_executable (fil3 "文件操作/03.二进制文件-写文件.cpp")
+add_executable (fil4 "文件操作/04.二进制文件-读文件.cpp")
+
+add_executable (mo1 "模板/01.函数模板语法.cpp")
 
 
 
