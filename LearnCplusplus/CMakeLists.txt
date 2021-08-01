@@ -83,14 +83,43 @@ project ("LearnCplusplus")
 # add_executable (duo5 "面向对象/7.多态/05.虚析构和纯虚析构.cpp")
 # add_executable (duo6 "面向对象/7.多态/06.多态案例三-电脑组装")
 
-add_executable (fil1 "文件操作/01.文本文件-写文件.cpp")
-add_executable (fil2 "文件操作/02.文本文件-读文件.cpp")
-add_executable (fil3 "文件操作/03.二进制文件-写文件.cpp")
-add_executable (fil4 "文件操作/04.二进制文件-读文件.cpp")
+# add_executable (fil1 "文件操作/01.文本文件-写文件.cpp")
+# add_executable (fil2 "文件操作/02.文本文件-读文件.cpp")
+# add_executable (fil3 "文件操作/03.二进制文件-写文件.cpp")
+# add_executable (fil4 "文件操作/04.二进制文件-读文件.cpp")
+#
+# add_executable (mo1 "模板/01.函数模板语法.cpp")
+# add_executable (mo2 "模板/02.函数模板注意事项.cpp")
+# add_executable (mo3 "模板/03.函数模板案例-数组排序.cpp")
+# add_executable (mo4 "模板/04.普通函数与函数模板的区别.cpp")
+# add_executable (mo5 "模板/05.普通函数与函数模板的调用规则.cpp")
+# add_executable (mo6 "模板/06.模板的局限性.cpp")
+# add_executable (mo7 "模板/07.类模板语法.cpp")
+# add_executable (mo8 "模板/08.类模板与函数模板区别.cpp")
+# add_executable (mo9 "模板/09.类模板中成员函数创建时机.cpp")
+# add_executable (mo10 "模板/10.类模板对象做函数参数.cpp")
+# add_executable (mo11 "模板/11.类模板与继承.cpp")
+# add_executable (mo12 "模板/12.类模板成员函数类外实现.cpp")
+# add_executable (mo13 "模板/13.类模板分文件编写.cpp" 模板/Person.hpp)
+# add_executable (mo14 "模板/14.类模板与友元.cpp")
+# add_executable (mo15 "模板/15.类模板案例—数组类封装.cpp" 模板/MyArray.hpp)
 
-add_executable (mo1 "模板/01.函数模板语法.cpp")
+add_executable (vector1 "stl/container/vector/01.vector容器存放内置数据类型.cpp")
+add_executable (vector2 "stl/container/vector/02.vector存放自定义数据类型.cpp")
+add_executable (vector3 "stl/container/vector/03.vector容器嵌套容器.cpp")
 
+add_executable (string1 "stl/container/string/01.string构造函数.cpp")
+add_executable (string2 "stl/container/string/02.string赋值操作.cpp")
+add_executable (string3 "stl/container/string/03.string字符串拼接.cpp")
+add_executable (string4 "stl/container/string/04.string查找和替换.cpp")
 
+# 遍历项目根目录及二级目录下所有的 .cpp 文件
+#[[file (GLOB files *.cpp */*cpp)
+foreach (file ${files})
+    string(REGEX REPLACE ".+/(.+)\\..*" "\\1" exe ${file})
+    add_executable (${exe} ${file})
+    message (\ \ \ \ --\ src/${exe}.cpp\ will\ be\ compiled\ to\ bin/${exe})
+endforeach ()]]
 
 
 # TODO: 如有需要，请添加测试并安装目标。
