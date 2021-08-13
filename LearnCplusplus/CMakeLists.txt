@@ -162,3 +162,7 @@ add_executable(02.map-size-swap "stl/container/map and multimap/02.map-size-swap
 add_executable(03.map-insert-delete "stl/container/map and multimap/03.map-insert-delete.cpp")
 add_executable(04.map-find-count "stl/container/map and multimap/04.map-find-count.cpp")
 add_executable(05.map-sort "stl/container/map and multimap/05.map-sort.cpp")
+add_executable(01.basic "stl/function object/01.basic.cpp")
+add_executable(02.one-predicate "stl/function object/02.one-predicate.cpp")
+add_executable(03.two-predicate "stl/function object/03.two-predicate.cpp")
+add_executable(04.suanshu "stl/function object/04.suanshu.cpp")
