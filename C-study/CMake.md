@@ -337,7 +337,7 @@ aux_source_directory(< dir > < variable >)
 进一步：GLOB_RECURSE 了解以下，能自动包含所有**子文件夹**下的文件：
 
 ```cmake
-add_executable(main
+add_executable(main)
 file(GLOB_RECURSE sources CONFIGURE_DEPENDS *.cpp .*h)
 target_sources(main PUBLIC ${sources})
 ```
