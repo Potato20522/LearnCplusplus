@@ -213,6 +213,8 @@ int main() {
 
 ## 内存四区模型
 
+![](img/内存四区模型.svg)
+
 流程说明
 
 1、操作系统把物理硬盘代码load到内存
@@ -229,7 +231,7 @@ int main() {
 
 - data区里主要存放的是**已经初始化**的全局变量、静态变量和常量
 -  bss区主要存放的是**未初始化**的全局变量、静态变量，这些未初始化的数据在程序执行前会自动被系统初始化为**0或者NULL**
-- 常量区，常量区是全局区中划分的一个小区域，里面存放的是常量，如const修饰的全局变量、字符串常量等
+- 常量区，常量区是全局区中划分的一个小区域，里面存放的是常量，如const修饰的全局变量、**字符串常量**等
 
 全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域，未初始化的全局变量和未初始化的静态变量在相邻的另一块区域，该区域在程序结束后由操作系统释放。
 
@@ -249,13 +251,265 @@ int main() {
 
 
 
+### 全局区分析
+
+```c
+#include <stdio.h>
+
+char *get_str1() {
+    char *p = "abcedf";//放在全局区中的常量区
+    return p;
+}
+
+char *get_str2() {
+    char *q = "abcedf";//放在全局区中的常量区
+    return q;
+}
+
+int main() {
+    char *p = NULL;
+    char *q = NULL;
+    p = get_str1();
+    //%s:这里是指针指向内存区域的内容
+    //%d %p:这里是 p 本身的值(内存地址)
+    printf("p=%s,p=%p\n", p,p);//abcedf,0x100403000
+    q= get_str2();
+    printf("q=%s,q=%p\n", q,q);//abcedf,0x100403000
+    //一样的
+    return 0;
+}
+```
+
+![image-20220324204557756](img/C语言进阶.assets/image-20220324204557756.png)
 
 
 
+### 栈区和堆区分析
+
+```c
+/**
+ * 内存四区之栈区和堆区
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char *get_str() {
+    //"abcdefg"在全局区
+    //对于数组，编译器会将全局区的"abcdefg"再拷贝一份到栈区的str[]
+    char str[] = "abcdefg";//分配在栈区，函数执行完毕，局部变量就释放了
+    //warning C4172: 返回局部变量或临时变量的地址: str
+    return str;
+}
+
+char *get_str2() {
+    char *temp = (char *) malloc(100); //堆区
+    if (temp == NULL) {
+        return NULL;
+    }
+    strcpy(temp,"asdfxgsdf");
+    return temp;
+}
+
+int main() {
+    char buf[128] = {0};
+    //vs编译器下能打印出来是因为，已经把字符串拷贝拷贝出来了
+    strcpy(buf, get_str());//不确定，有可能打印出来(vs)，还有可能编译报错(gcc)
+    printf("buf=%s\n", buf);
+    char *p = NULL;
+    p = get_str();//vs-debug能正常显示，vs-release乱码
+    printf("p=%s\n", p);
+
+    p = get_str2();
+    if (p != NULL) {
+        printf("p=%s\n", p);
+        free(p);//free不是清除数据，是置一个标志位，告诉操作系统这块内存可以用了。
+        //p的指向还是不变的，还是可以用的，因此要给p指向空
+        p = NULL;
+        //一般，还要加一句：
+        if (p != NULL) {
+            free(p);
+        }
+    }
+    return 0;
+}
+```
+
+栈区图解：
+
+![image-20220324211853948](img/C语言进阶.assets/image-20220324211853948.png)
 
 
 
+堆区图解：
 
+![image-20220324215926479](img/C语言进阶.assets/image-20220324215926479.png)
+
+## 函数调用模型
+
+![image-20220324220100778](img/C语言进阶.assets/image-20220324220100778.png)
+
+main函数在栈区开辟的内存，所有子函数均可以使用。
+
+main函数在堆区开辟的内存，所有子函数均可以使用。
+
+子函数1里面调用子函数2：
+
+- 子函数1在堆区开辟的内存，子函数1和2均可以使用
+- 子函数1在栈区开辟的内存，子函数1和2均可以使用
+
+## 静态局部变量
+
+```c
+int *getA(){
+    static int a = 10;
+    return &a;
+}
+
+
+int main() {
+    int *p = getA();
+    return 0;
+}
+```
+
+## 栈的生长方向和内存存放方向
+
+![](img/C语言进阶.assets/栈的生长方向和内存存放方向.svg)
+
+```c
+/**
+ * 栈的生长方向和内存存放方向
+ * 栈：内存地址递减的
+ * 堆：内存地址递增的
+ * 栈中的数组：内存存放的方向递增
+ * 堆中的数组：内存存放的方向递减
+ * 也不绝对，和编译器有关
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    int a;
+    int b;
+    //&a = 00AFFC34, &b = 00AFFC28 栈：内存地址递减的
+    printf("&a = %p, &b = %p\n",&a,&b);
+
+    int buf[100];
+    //buf:00AFFA90, buf+1:00AFFA94 栈中的数组：内存存放的方向递增
+    printf("buf:%p, buf+1:%p\n",buf,buf+1);
+    return 0;
+}
+```
+
+# 分文件
+
+1、分文件时，头文件防止头文件重复包含：
+
+```h
+#pragma once
+```
+
+a.h：
+
+```h
+#include "b.h"
+```
+
+b.h：
+
+```h
+#include "a.h"
+```
+
+main.c:
+
+```c
+#include "a.h"
+```
+
+编译报错：头文件包含太多：深度=1024
+
+解决：加上：#pragma once
+
+a.h：
+
+```h
+#pragma once
+#include "b.h"
+```
+
+b.h：
+
+```h
+#pragma once
+#include "a.h"
+```
+
+就解决了
+
+
+
+2、让C代码可以在C++编译器编译运行：
+
+```h
+// __cplusplus是编译器提供好的宏，不是自定义的
+#ifdef __cplusplus
+extern "C"{
+#endif
+
+  //函数的声明
+
+#ifdef __cplusplus
+}
+#endif
+```
+
+这样可以不用把.c后缀改为.cpp就能在C++编译器里运行
+
+
+
+# 指针强化
+
+## 指针也是一种数据类型
+
+指针变量也是一种变量，占有内存空间，用来保存内存地址。
+
+- 在指针声明时，*号表示所声明的变量位指针
+- 在指针使用时，*号表示操作指针所指向的内存空间中的值
+
+*p相当于通过地址（p变量的值）找打一块内存，然后操作内存。
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//指针也是一种数据类型,指针变量也是一种变量
+int main() {
+    int *p = NULL;
+    char **********q = NULL;
+    printf("sizeof(p)=%d,sizeof(q)=%d\n", sizeof(p), sizeof(q));//32位：4
+
+    //指针指向谁，就把谁的地址赋值给指针
+    int a = 100;
+    int *p1 = NULL;
+    p1 = &a;
+    //通过*号找到指针指向的内存区域，操作内存
+    *p1 = 22;//a和p1的值都变成22
+    //*放在=左边，给内存赋值，写内存，
+    //*放在=右边，取内存的值，读内存
+    int b = *p1;//22
+
+    return 0;
+
+}
+```
+
+void*,万能指针，使用时转换为实际的类型
+
+## 指针变量和它指向的内存块
 
 
 
