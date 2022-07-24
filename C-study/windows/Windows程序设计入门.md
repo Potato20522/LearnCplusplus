@@ -419,6 +419,10 @@ LPCTSTR:C代表const+T代表自适应
 
 3.控制后台可使用多字节，GUI程序最好使用Unicode
 
+
+
+**总结：用Unicode字符集就完事了**
+
 # 第一个windows程序
 
 **hello world**
@@ -471,6 +475,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
   ```
 
   
+  
+  ![image-20220724133943325](img/Windows程序设计入门.assets/image-20220724133943325.png)
 
 
 
@@ -492,4 +498,133 @@ int main() {
 
 
 
+# 文件读取
+
+```c
+#include <windows.h>
+#include <stdio.h>
+
+#define BUF_SIZE 256 //缓冲大小256
+
+int main() {
+    HANDLE hFileRead;
+    DWORD nIn;//实际上读到的
+    CHAR buffer[BUF_SIZE];//缓冲,256字节的字符数组
+
+    //CreateFile既可以创建文件，又可以打开文件
+    hFileRead = CreateFile(
+            "E:\\Gitee\\LearnCplusplus\\C-study\\windows\\windows-api\\book1.txt",//文件名
+            GENERIC_READ, //模式：读还是写
+            FILE_SHARE_READ, //指定文件如何共享
+            NULL,//安全属性，默认NULL
+            OPEN_EXISTING,//打开已经存在的文件，而不是创建新的文件
+            FILE_ATTRIBUTE_NORMAL,//设定文件的属性：常规
+            NULL   //指定模板，这里没有
+    );
+    if (hFileRead == INVALID_HANDLE_VALUE) { //如果是一个无效的句柄，说明出错了
+        printf("can not open file, Error:%x\n", GetLastError());
+        return -1;
+    }
+    //参数1：文件句柄，参数2：缓冲（想读多少）,参数3：最多读取多少,参数4：实际读取到多少个,参数5：没有用到
+    while (ReadFile(hFileRead, buffer, BUF_SIZE, &nIn, NULL) && nIn > 0) {
+//        printf("%s\n", buffer);
+        printf("%s\n", buffer);
+    }
+    CloseHandle(hFileRead);//用完了要关掉句柄
+    printf("hello\n");
+    return 0;
+}
+```
+
+# 获取文件属性
+
+微软利用C语言的struct做了很多windows的数据结构，又利用typedef来定义别名
+
+下面以读取文件属性为例，体会下windows的数据结构
+
+```c
+#include <windows.h>
+#include <stdio.h>
+DWORD ShowFileTime(PFILETIME lptime){
+    FILETIME ftLocal;//转换以后的本地的文件时间
+    SYSTEMTIME  st;//windows系统时间
+    //1.文件时间转为本地的文件时间
+    FileTimeToLocalFileTime(lptime,&ftLocal);
+    //2.文件时间转为windows系统时间
+    FileTimeToSystemTime(&ftLocal, &st);
+    printf("%d年%d月%d日，%#02d:%#02d:%#02d\n", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
+    return 0;
+}
+int main() {
+    WIN32_FILE_ATTRIBUTE_DATA wfad;
+    if (!GetFileAttributesEx("E:\\Gitee\\LearnCplusplus\\C-study\\windows\\windows-api\\file_attr.c", GetFileExInfoStandard, &wfad)) {
+        printf("获取文件属性失败:%d\n", GetLastError());
+        return 1;
+    }
+    //wfad.ftCreationTime的类型是一个紧凑的时间类型，需要写个函数转化后才能看懂
+    printf("创建时间:\t");
+    ShowFileTime(&wfad.ftCreationTime);
+
+    printf("访问时间:\t");
+    ShowFileTime(&wfad.ftLastAccessTime);
+
+    printf("修改时间:\t");
+    ShowFileTime(&wfad.ftLastWriteTime);
+    return 0;
+}
+```
+
+```
+创建时间:       2022年7月24日，14:51:29
+访问时间:       2022年7月24日，15:07:34
+修改时间:       2022年7月24日，15:07:32
+```
+
+# 获取系统目录
+
+获取系统目录，并写入到文件中
+
+API函数
+
+- GetSystemDirectory()
+- CreateFile()
+- WriteFile()
+- CloseHandle()
+
+
+
+```c
+#include <windows.h>
+#include <stdio.h>
+//获取系统目录，并写入到文件中
+
+int main(){
+    //MAX_PATH=260,表示windows中文件的路径名最长是260，如C:\Program Files\filename.txt不能超过260
+    TCHAR szSystemDir[MAX_PATH] ;
+    GetSystemDirectory(szSystemDir, MAX_PATH);
+    printf("%s\n", szSystemDir);//C:\Windows\system32
+
+    HANDLE hFile;
+    DWORD dwWritten;
+    //文件名，模式：写，不共享，安全属性没有，总是创建文件，文件属性：常规，模板：无
+    hFile = CreateFile("systemroot.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (hFile != INVALID_HANDLE_VALUE) {//创建文件成功
+        //文件句柄，写入的内容，写入的长度，真正写入的长度，是否覆盖：否
+        if (!WriteFile(hFile, szSystemDir, lstrlen(szSystemDir), &dwWritten, NULL)) {
+            return GetLastError();//写失败
+        }
+    }
+
+    CloseHandle(hFile);//关闭句柄
+    printf("OK\n");
+
+    return 0;
+}
+```
+
+结果：在exe的当前目录中生成文件systemroot.txt，内容是：C:\Windows\system32
+
+
+
 1
+
