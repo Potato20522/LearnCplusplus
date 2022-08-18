@@ -1,5 +1,3 @@
-# 第一阶段 基础语法入门
-
 # 环境搭建
 
 ## 相关概念
@@ -10,13 +8,13 @@ https://www.jianshu.com/p/1367dad95445
 
 LLVM是构架[编译器](https://baike.baidu.com/item/编译器/8853067)(compiler)的框架系统，以C++编写而成，用于优化以任意程序语言编写的程序的编译时间(compile-time)、链接时间(link-time)、运行时间(run-time)以及空闲时间(idle-time)，对开发者保持开放，并兼容已有脚本。
 
-![img](C++笔记.assets/3008243-b517c768f5a97607.png)
+![img](img/C++基础.assets/3008243-b517c768f5a97607.png)
 
 ### Clang
 
 LLVM项目的一个子项目，基于LLVM架构的C/C++/Objective-C编译器前端。
 
-![img](C++笔记.assets/3008243-a7c02c2c24265d98.png)
+![img](img/C++基础.assets/3008243-a7c02c2c24265d98.png)
 
 LLVM整体架构，前端用的是clang，广义的LLVM是指整个LLVM架构，一般狭义的LLVM指的是LLVM后端（包含代码优化和目标代码生成）。
 
@@ -52,7 +50,7 @@ GNU Compiler Collection  GNU编译器套件，GNU编译器套件包括C、C++、
 
 GNU's Not Unix! 是一个操作系统
 
-![image-20210219180718246](C++笔记.assets/image-20210219180718246.png)
+![image-20210219180718246](img/C++基础.assets/image-20210219180718246.png)
 
 ## vscode
 
@@ -169,7 +167,7 @@ c_cpp_properties.json
 }
 ```
 
-
+## VisualStudio
 
 # C++初识
 
@@ -1030,7 +1028,7 @@ p1 = &b; //正确
 //*p1 = 100;  报错
 ```
 
-![image-20210725004440054](C++笔记.assets/image-20210725004440054.png)
+![image-20210725004440054](img/C++基础.assets/image-20210725004440054.png)
 
 ```C++
 //const修饰的是常量，指针指向不可以改，指针指向的值可以更改
@@ -1039,7 +1037,7 @@ int * const p2 = &a;
 *p2 = 100; //正确
 ```
 
-![image-20210725004941347](C++笔记.assets/image-20210725004941347.png)
+![image-20210725004941347](img/C++基础.assets/image-20210725004941347.png)
 
 
 
@@ -1155,7 +1153,7 @@ int main() {
 
 通常，一个指针包含一个变量的地址。当我们定义一个指向指针的指针时，第一个指针包含了第二个指针的地址，第二个指针指向包含实际值的位置。
 
-![C++ 中指向指针的指针](C++笔记.assets/pointer_to_pointer.jpg)
+![C++ 中指向指针的指针](img/C++基础.assets/pointer_to_pointer.jpg)
 
 一个指向指针的指针变量必须如下声明，即在变量名前放置两个星号。例如，下面声明了一个指向 int 类型指针的指针：
 
@@ -1535,7 +1533,7 @@ int main() {
 局部常量c_l_b地址为： 5241856
 ```
 
-![image-20210725141527558](C++笔记.assets/image-20210725141527558.png)
+![image-20210725141527558](img/C++基础.assets/image-20210725141527558.png)
 
 总结：
 
@@ -2548,7 +2546,7 @@ int main() {
 
 
 
-![image-20210726171721708](C++笔记.assets/image-20210726171721708.png)
+![image-20210726171721708](img/C++基础.assets/image-20210726171721708.png)
 
 ### 深拷贝与浅拷贝
 
@@ -2614,7 +2612,7 @@ int main() {
 
 
 
-![image-20210726173034662](C++笔记.assets/image-20210726173034662.png)
+![image-20210726173034662](img/C++基础.assets/image-20210726173034662.png)
 
 总结：**如果属性有在堆区开辟的，一定要自己提供拷贝构造函数，防止浅拷贝带来的问题**
 
@@ -3659,7 +3657,7 @@ B 类称为父类 或 基类
 * 保护继承
 * 私有继承
 
-![clip_image002](C++笔记.assets/clip_image002.png)
+![clip_image002](img/C++基础.assets/clip_image002.png)
 
 **公共继承:**
 
@@ -3780,7 +3778,7 @@ int main() {
 
 利用工具查看：
 
-![image-20210728235241397](C++笔记.assets/image-20210728235241397.png)
+![image-20210728235241397](img/C++基础.assets/image-20210728235241397.png)
 
 打开工具窗口后，定位到当前CPP文件的盘符
 
@@ -3788,7 +3786,7 @@ int main() {
 
 效果如下图：
 
-![image-20210728235216773](C++笔记.assets/image-20210728235216773.png)
+![image-20210728235216773](img/C++基础.assets/image-20210728235216773.png)
 
 结论： 父类中私有成员也是被子类继承下去了，只是由编译器给隐藏后访问不到
 
@@ -4060,7 +4058,7 @@ int main() {
 
 
 
-![clip_image002](C++笔记.assets/clip_image002.jpg)
+![clip_image002](img/C++基础.assets/clip_image002.jpg)
 
 菱形继承问题：
 
@@ -4068,7 +4066,7 @@ int main() {
 
 2.     草泥马继承自动物的数据继承了两份，其实我们应该清楚，这份数据我们只需要一份就可以。
 
-<img src="C++笔记.assets/image-20210729004522616.png" alt="image-20210729004522616" style="zoom:80%;" />
+<img src="img/C++基础.assets/image-20210729004522616.png" alt="image-20210729004522616" style="zoom:80%;" />
 
 
 
@@ -4104,7 +4102,7 @@ int main() {
 }
 ```
 
-<img src="C++笔记.assets/image-20210729004718213.png" alt="image-20210729004718213" style="zoom:80%;" />
+<img src="img/C++基础.assets/image-20210729004718213.png" alt="image-20210729004718213" style="zoom:80%;" />
 
 vbptr虚基类指针
 
@@ -4241,7 +4239,7 @@ ptr:pointer
 
 vftable 虚函数表
 
-<img src="C++笔记.assets/image-20210729221916081.png" alt="image-20210729221916081" style="zoom: 50%;" />
+<img src="img/C++基础.assets/image-20210729221916081.png" alt="image-20210729221916081" style="zoom: 50%;" />
 
 当父类的指针或者引用指向子类对象的时候，发生多态
 

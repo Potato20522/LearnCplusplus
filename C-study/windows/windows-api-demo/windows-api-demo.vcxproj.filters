@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="service_and_install_demo.c">
+    <ClCompile Include="uac_demo.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
